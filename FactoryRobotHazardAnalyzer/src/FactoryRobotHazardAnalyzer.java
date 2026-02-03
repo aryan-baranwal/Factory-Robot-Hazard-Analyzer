@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Factory Robot Hazard Analyzer
  *
- * UC6: Introduces custom exception for safety validation.
+ * UC7: Maps machinery state to risk factor.
  */
 public class FactoryRobotHazardAnalyzer {
 
@@ -24,7 +24,7 @@ public class FactoryRobotHazardAnalyzer {
 
             validateInputs(armPrecision, workerDensity, machineryState);
 
-            double machineRiskFactor = 1.0;
+            double machineRiskFactor = getMachineRiskFactor(machineryState);
 
             double hazardRisk =
                     ((1.0 - armPrecision) * 15.0)
@@ -41,9 +41,6 @@ public class FactoryRobotHazardAnalyzer {
         }
     }
 
-    /**
-     * Validates robot hazard inputs.
-     */
     private static void validateInputs(double armPrecision,
                                        int workerDensity,
                                        String machineryState)
@@ -64,6 +61,17 @@ public class FactoryRobotHazardAnalyzer {
                 && !machineryState.equals("Critical")) {
             throw new RobotSafetyException(
                     "Error: Unsupported machinery state");
+        }
+    }
+
+    private static double getMachineRiskFactor(String machineryState) {
+
+        if (machineryState.equals("Worn")) {
+            return 1.3;
+        } else if (machineryState.equals("Faulty")) {
+            return 2.0;
+        } else { // Critical
+            return 3.0;
         }
     }
 }
