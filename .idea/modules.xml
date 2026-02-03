@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Factory-Robot-Hazard-Analyzer.iml" filepath="$PROJECT_DIR$/.idea/Factory-Robot-Hazard-Analyzer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FactoryRobotHazardAnalyzer/FactoryRobotHazardAnalyzer.iml" filepath="$PROJECT_DIR$/FactoryRobotHazardAnalyzer/FactoryRobotHazardAnalyzer.iml" />
+    </modules>
+  </component>
+</project>
