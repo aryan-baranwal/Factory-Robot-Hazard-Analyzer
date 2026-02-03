@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Factory Robot Hazard Analyzer
  *
- * UC7: Maps machinery state to risk factor.
+ * UC8: Final refactored OOPS-compliant design.
  */
 public class FactoryRobotHazardAnalyzer {
 
@@ -22,13 +22,11 @@ public class FactoryRobotHazardAnalyzer {
             System.out.print("Enter Machinery State (Worn/Faulty/Critical): ");
             String machineryState = sc.nextLine();
 
-            validateInputs(armPrecision, workerDensity, machineryState);
-
-            double machineRiskFactor = getMachineRiskFactor(machineryState);
-
-            double hazardRisk =
-                    ((1.0 - armPrecision) * 15.0)
-                            + (workerDensity * machineRiskFactor);
+            double hazardRisk = analyzeHazard(
+                    armPrecision,
+                    workerDensity,
+                    machineryState
+            );
 
             System.out.println("\n--- HAZARD ANALYSIS REPORT ---");
             System.out.println("Arm Precision   : " + armPrecision);
@@ -41,6 +39,25 @@ public class FactoryRobotHazardAnalyzer {
         }
     }
 
+    /**
+     * Performs full hazard analysis.
+     */
+    private static double analyzeHazard(double armPrecision,
+                                        int workerDensity,
+                                        String machineryState)
+            throws RobotSafetyException {
+
+        validateInputs(armPrecision, workerDensity, machineryState);
+
+        double machineRiskFactor = getMachineRiskFactor(machineryState);
+
+        return ((1.0 - armPrecision) * 15.0)
+                + (workerDensity * machineRiskFactor);
+    }
+
+    /**
+     * Validates all inputs.
+     */
     private static void validateInputs(double armPrecision,
                                        int workerDensity,
                                        String machineryState)
@@ -64,14 +81,18 @@ public class FactoryRobotHazardAnalyzer {
         }
     }
 
+    /**
+     * Maps machinery state to risk factor.
+     */
     private static double getMachineRiskFactor(String machineryState) {
 
-        if (machineryState.equals("Worn")) {
-            return 1.3;
-        } else if (machineryState.equals("Faulty")) {
-            return 2.0;
-        } else { // Critical
-            return 3.0;
+        switch (machineryState) {
+            case "Worn":
+                return 1.3;
+            case "Faulty":
+                return 2.0;
+            default: // Critical
+                return 3.0;
         }
     }
 }
